@@ -19,6 +19,7 @@
 package org.exoplatform.community.portlet.addon.search;
 
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -50,7 +51,7 @@ public class UIAddOnDetail extends UIAddOnSearchOne {
 	
 	public List<String> getImageGallery() throws PathNotFoundException, RepositoryException, Exception{
 		
-		return AddOnService.getImagesNode(this.getNode());
+		return null;
 		
 	}	
 

@@ -132,7 +132,7 @@ public class UIAddOnSearchEdit extends UIForm implements UIPopupComponent {
 
   public String getStrProperty(String propertyName) throws RepositoryException {
 
-    return AddOnService.getStrProperty(this.getNode(), propertyName);
+    return null;
 
   }
 
@@ -201,7 +201,7 @@ public class UIAddOnSearchEdit extends UIForm implements UIPopupComponent {
   }
 
   public Node getNode() throws PathNotFoundException, RepositoryException {
-    return AddOnService.getNodeById(this.getNodeId());
+    return null;
   }
 
   public void getImagesNode() throws Exception, RepositoryException {

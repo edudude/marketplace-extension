@@ -29,6 +29,7 @@ import javax.jcr.query.QueryManager;
 import javax.jcr.query.QueryResult;
 
 import org.exoplatform.addon.service.AddOnService;
+import org.exoplatform.addon.service.Addon;
 import org.exoplatform.portal.webui.container.UIContainer;
 import org.exoplatform.portal.webui.util.Util;
 import org.exoplatform.services.jcr.ext.common.SessionProvider;
@@ -51,7 +52,7 @@ public class UIAddOnSearchResult extends UIContainer {
 
   private static final Log    log            = ExoLogger.getLogger(UIAddOnSearchResult.class);
 
-  private ArrayList<Node>     data           = new ArrayList<Node>();
+  private ArrayList<Addon>     data           = new ArrayList<Addon>();
 
   /** The Constant ITEMS_PER_PAGE. */
   public final static Integer ITEMS_PER_PAGE = 9;
@@ -152,7 +153,7 @@ public class UIAddOnSearchResult extends UIContainer {
 
   public void clearResult() throws RepositoryException {
     this.resetChild();
-    this.setData(new ArrayList<Node>());
+    this.setData(new ArrayList<Addon>());
     this.setShowMoreCount(0);
     this.setQueryStart(0);
     this.setSQLOrder(" ORDER BY exo:title ASC ");
@@ -161,7 +162,7 @@ public class UIAddOnSearchResult extends UIContainer {
 
   private void resetChild() throws RepositoryException {
     if (this.getData().size() > 0) {
-      for (Node aNode : this.getData()) {
+      for (Addon aNode : this.getData()) {
         //this.removeChildById(aNode.getUUID());
         this.removeChild(UIAddOnSearchOne.class);
       }
@@ -169,13 +170,13 @@ public class UIAddOnSearchResult extends UIContainer {
 
   }
 
-  public void setData(ArrayList<Node> data) {
+  public void setData(ArrayList<Addon> data) {
 
     this.data = data;
 
   }
 
-  public ArrayList<Node> getData() {
+  public ArrayList<Addon> getData() {
 
     return this.data;
   }
@@ -270,18 +271,19 @@ public class UIAddOnSearchResult extends UIContainer {
   }
 
   private void getDBResource(String sqlQuery) throws Exception {
-
+/*
     QueryResult result = this.excSQL(sqlQuery, true);
     NodeIterator it = result.getNodes();
     while (it.hasNext()) {
-      Node findedNode = it.nextNode();
-      
-      if (super.getChildById(findedNode.getUUID()) == null) {
-        UIAddOnSearchOne uiAddOnSearchOne = addChild(UIAddOnSearchOne.class, null, findedNode.getUUID());
-        uiAddOnSearchOne.setNodeId(findedNode.getUUID());
+      Node findedNode = it.nextNode();*/
+
+      for(Addon addon : AddOnService.ADDONS){
+      if (super.getChildById(addon.getId()) == null) {
+        UIAddOnSearchOne uiAddOnSearchOne = addChild(UIAddOnSearchOne.class, null, addon.getId());
+        uiAddOnSearchOne.setNodeId(addon.getId());
       }
       
-      this.data.add(findedNode);
+      this.data.add(addon);
     }
   }
 

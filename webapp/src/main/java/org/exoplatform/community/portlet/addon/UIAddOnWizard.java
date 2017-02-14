@@ -155,7 +155,8 @@ public class UIAddOnWizard extends UIFormInputSet{
 				propertyName = properties[i];
 				
 				try {
-					txt = AddOnService.getStrProperty(aNode,"exo:"+propertyName);
+					/*txt = AddOnService.getStrProperty(aNode,"exo:"+propertyName);*/
+					txt="";
 					if(null != txt){
 						if(ADDON_DESCRIPTION.equals(propertyName)){
 							((UIFormRichtextInput)this.getChildById(propertyName)).setValue(txt);
@@ -163,7 +164,7 @@ public class UIAddOnWizard extends UIFormInputSet{
 							this.getUIStringInput(propertyName).setValue(txt);
 						}						
 					}
-				} catch (RepositoryException e) {
+				} catch (Exception e) {
 					log.error("ERR init vals for edit addon "+propertyName);
 				}
 
