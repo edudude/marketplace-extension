@@ -295,7 +295,7 @@ public class UIAddOnSearchResult extends UIContainer {
     QueryResult result = this.excSQL(sqlQuery, false);
     int count = (int) result.getRows().getSize();
     log.debug(" ================ total item " + count + " ========================== ");
-    this.setTotalItem(count);
+    this.setTotalItem(AddOnService.ADDONS.size());
 
   }
 

@@ -28,6 +28,8 @@ import org.exoplatform.community.portlet.addon.UIAddOnWizard;
 import org.exoplatform.portal.mop.SiteType;
 import org.exoplatform.portal.webui.container.UIContainer;
 import org.exoplatform.portal.webui.util.Util;
+import org.exoplatform.services.log.ExoLogger;
+import org.exoplatform.services.log.Log;
 import org.exoplatform.services.wcm.friendly.FriendlyService;
 import org.exoplatform.services.wcm.utils.WCMCoreUtils;
 import org.exoplatform.web.url.navigation.NavigationResource;
@@ -66,7 +68,10 @@ public class UIAddOnSearchOne extends UIContainer {
 
     public static final String UNINSTALL = "uninstall";
 
-    public static final String ADDON_SCRIPT_LINUX = "/home/exo/Desktop/4.4.0/platform-4.4.0/addon"; // to be updated : tomcatHome.
+    public static final String ADDON_SCRIPT_LINUX = "/home/exo/Desktop/MarcketPlae/platform-4.4.0/addon"; // to be updated : tomcatHome.
+
+
+    private static final Log log = ExoLogger.getLogger(UIAddOnSearchOne.class);
 
     public UIAddOnSearchOne() throws Exception {
 
@@ -185,25 +190,22 @@ public class UIAddOnSearchOne extends UIContainer {
             UIAddOnSearchOne uiAddOnSearchOne = event.getSource();
 
             String addonIdentifier = uiAddOnSearchOne.getNodeId();
-
-            ProcessBuilder pb = new ProcessBuilder(ADDON_SCRIPT_LINUX, INSTALL, addonIdentifier);
-
-            Process p = null;
             try {
-                p = pb.start();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            BufferedReader reader = new BufferedReader(new InputStreamReader(p.getInputStream()));
-            String line = null;
-            try {
-                while ((line = reader.readLine()) != null) {
-                    System.out.println(line);
+                String target = new String(ADDON_SCRIPT_LINUX+" "+INSTALL+" "+addonIdentifier);
+              // String target = new String("mkdir stackOver");
+                Runtime rt = Runtime.getRuntime();
+                Process proc = rt.exec(target);
+                proc.waitFor();
+                StringBuffer output = new StringBuffer();
+                BufferedReader reader = new BufferedReader(new InputStreamReader(proc.getInputStream()));
+                String line = "";
+                while ((line = reader.readLine())!= null) {
+                    output.append(line + "\n");
                 }
-            } catch (IOException e) {
-                e.printStackTrace();
+               log.info(output);
+            } catch (Exception e) {
+                log.error("hello",e);
             }
-
         }
     }
     public static class UnInstallActionListener extends EventListener<UIAddOnSearchOne> {

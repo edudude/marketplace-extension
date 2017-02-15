@@ -32,9 +32,10 @@
 				</div>	
 				<div class="actionButton">
 					<% if(cantInstall){ %>
-					<button class="btn btn-primary" onclick="<%=uicomponent.event("Install")%>">Uninstall</button>
+					<button class="btn btn-primary" onclick="<%=uicomponent.event("UnInstall")%>">Uninstall</button>
+					<button class="btn btn-primary" onclick="<%=uicomponent.event("UnInstall")%>">Upgrade</button>
 					<% } else { %>
-					<button class="btn btn-primary" onclick="<%=uicomponent.event("UnInstall")%>">Install</button>
+					<button class="btn btn-primary" onclick="<%=uicomponent.event("Install")%>">Install</button>
 					<% } %>
 
 			</div>
